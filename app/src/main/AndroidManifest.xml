@@ -21,6 +21,11 @@
             android:name="nap.orbital2018.com.tnap.RegisterActivity"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity
+            android:name="nap.orbital2018.com.tnap.HomeActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

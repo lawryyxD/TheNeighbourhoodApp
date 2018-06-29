@@ -1,7 +1,10 @@
 package nap.orbital2018.com.tnap;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -131,6 +134,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (!task.isSuccessful()) {
                     Log.d("TNAP", "user creation failed");
+                    showErrorDialog("Registration attempt failed");
+                } else {
+                    saveDisplayName();
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    finish();
+                    startActivity(intent);
                 }
             }
         });
@@ -138,10 +147,23 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     // TODO: Save the display name to Shared Preferences
+    private void saveDisplayName() {
+        String displayname = mUsernameView.getText().toString();
+        SharedPreferences prefs = getSharedPreferences(CHAT_PREFS, 0);
+        prefs.edit().putString(DISPLAY_NAME_KEY, displayname).apply();
+    }
 
 
     // TODO: Create an alert dialog to show in case registration failed
+    private void showErrorDialog (String message) {
 
+        new AlertDialog.Builder(this)
+                .setTitle("Oops")
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 
 
 
